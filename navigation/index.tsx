@@ -13,8 +13,8 @@ import { ColorSchemeName, Pressable } from "react-native";
 import Colors from "../constants/Colors";
 import { useAuth } from "../hooks/useAuth";
 import useColorScheme from "../hooks/useColorScheme";
+import { Home } from "../pages/Home";
 import { Welcome } from "../pages/Welcome";
-import ModalScreen from "../screens/ModalScreen";
 import NotFoundScreen from "../screens/NotFoundScreen";
 import TabOneScreen from "../screens/TabOneScreen";
 import TabTwoScreen from "../screens/TabTwoScreen";
@@ -46,14 +46,11 @@ function RootNavigator() {
         <Stack.Navigator>
             {user.logged ? (
                 <>
-                    <Stack.Screen name="Root" component={BottomTabNavigator} options={{ headerShown: false }} />
+                    <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
                     <Stack.Screen name="NotFound" component={NotFoundScreen} options={{ title: "Oops!" }} />
-                    <Stack.Group screenOptions={{ presentation: "modal" }}>
-                        <Stack.Screen name="Modal" component={ModalScreen} />
-                    </Stack.Group>
                 </>
             ) : (
-                <Stack.Screen name="Root" component={Welcome} options={{ headerShown: false }} />
+                <Stack.Screen name="Welcome" component={Welcome} options={{ headerShown: false }} />
             )}
         </Stack.Navigator>
     );
@@ -83,7 +80,7 @@ function BottomTabNavigator() {
                     tabBarIcon: ({ color }) => <TabBarIcon name="code" color={color} />,
                     headerRight: () => (
                         <Pressable
-                            onPress={() => navigation.navigate("Modal")}
+                            onPress={() => navigation.navigate("Home")}
                             style={({ pressed }) => ({
                                 opacity: pressed ? 0.5 : 1,
                             })}
